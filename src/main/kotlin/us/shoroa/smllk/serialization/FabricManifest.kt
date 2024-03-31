@@ -13,7 +13,7 @@ data class FabricManifest(
     val time: String,
     val type: String,
     val mainClass: String,
-    val arguments: VersionArguments? = null,
+    val arguments: FabricArguments? = null,
     val libraries: List<Library>
 )
 
