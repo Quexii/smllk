@@ -1,9 +1,0 @@
-﻿{
-  "agentId": 2,
-  "agentName": "github-runner",
-  "poolId": 1,
-  "poolName": "Default",
-  "serverUrl": "https://pipelinesghubeus26.actions.githubusercontent.com/REFooEHyMlPg7awpkLPydfp00ogDS2E72PGHNHtJ0nQFt2NqK0/",
-  "gitHubUrl": "https://github.com/Quexii/smllk",
-  "workFolder": "_work"
-}
