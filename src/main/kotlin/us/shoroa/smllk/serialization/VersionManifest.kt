@@ -1,4 +1,5 @@
 package us.shoroa.smllk.serialization
+
 import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
 
@@ -7,7 +8,7 @@ import kotlinx.serialization.json.JsonElement
 
 @Serializable
 data class VersionManifest(
-    val arguments: Arguments? = null,
+    val arguments: VersionArguments? = null,
     val assetIndex: AssetIndex,
     val assets: String,
     val complianceLevel: Int,
@@ -25,7 +26,7 @@ data class VersionManifest(
 )
 
 @Serializable
-data class Arguments(
+data class VersionArguments(
     @Contextual val game: MutableList<JsonElement>,
     @Contextual val jvm: MutableList<JsonElement>
 )

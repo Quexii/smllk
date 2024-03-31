@@ -1,8 +1,5 @@
 package us.shoroa.smllk.downloader
 
-import currentOs
-import downloadFile
-import extractZipFile
 import io.ktor.client.*
 import io.ktor.client.engine.okhttp.*
 import io.ktor.client.request.*
@@ -20,6 +17,7 @@ import kotlinx.serialization.json.long
 import us.shoroa.smllk.Launcher
 import us.shoroa.smllk.serialization.VersionManifest
 import us.shoroa.smllk.utils.Timer
+import us.shoroa.smllk.utils.*
 import java.io.File
 import java.util.concurrent.atomic.AtomicInteger
 

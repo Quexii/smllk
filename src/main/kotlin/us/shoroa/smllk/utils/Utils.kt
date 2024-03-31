@@ -1,9 +1,9 @@
+package us.shoroa.smllk.utils
+
 import io.ktor.client.*
 import io.ktor.client.engine.okhttp.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
-import io.ktor.util.cio.*
-import io.ktor.utils.io.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.File
@@ -46,9 +46,7 @@ fun extractZipFile(zipFile: String, outputDirectory: String, exclusions: List<St
         while (zipEntry != null) {
             val newFile = File(outputDirectory, zipEntry.name)
 
-            println(zipEntry.name)
-
-            if (!exclusions.any { zipEntry.name.contains(it) }) {
+            if (!exclusions.any { zipEntry?.name!!.contains(it) }) {
                 File(newFile.parent).mkdirs()
                 FileOutputStream(newFile).use { fos ->
                     var len: Int

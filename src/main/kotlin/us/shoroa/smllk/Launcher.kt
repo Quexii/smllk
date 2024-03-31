@@ -1,6 +1,6 @@
 package us.shoroa.smllk
 
-import currentOs
+import us.shoroa.smllk.utils.*
 import us.shoroa.smllk.downloader.Downloader
 import us.shoroa.smllk.serialization.VersionManifest
 import us.shoroa.smllk.version.Version

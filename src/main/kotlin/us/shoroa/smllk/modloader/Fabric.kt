@@ -1,7 +1,7 @@
 package us.shoroa.smllk.modloader
 
-import FabricManifest
-import downloadFile
+import us.shoroa.smllk.serialization.FabricManifest
+import us.shoroa.smllk.utils.*
 import io.ktor.client.*
 import io.ktor.client.engine.okhttp.*
 import io.ktor.client.request.*
@@ -25,7 +25,6 @@ open class Fabric(val loaderVersion: String) : ModLoader() {
                     val splitLink = link.split(".").joinToString("/") { it }
                     val fabricurl = "https://maven.fabricmc.net/$splitLink/$lib/$ver/$lib-$ver.jar"
                     val url = if (library.url == "https://maven.fabricmc.net/") fabricurl else fabricurl.replaceFirst("maven.fabricmc.net","repo.legacyfabric.net/repository/legacyfabric")
-                    println(url)
                     val path = "$splitLink/$lib/$ver/$lib-$ver.jar"
                     val file = File(version.launcher?.libsDir, path)
                     if (!file.exists() || (library.size > 0L && file.length() != library.size)) {

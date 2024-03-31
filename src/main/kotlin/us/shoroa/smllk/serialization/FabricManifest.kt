@@ -1,3 +1,4 @@
+package us.shoroa.smllk.serialization
 
 import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
@@ -12,12 +13,12 @@ data class FabricManifest(
     val time: String,
     val type: String,
     val mainClass: String,
-    val arguments: Arguments? = null,
+    val arguments: VersionArguments? = null,
     val libraries: List<Library>
 )
 
 @Serializable
-data class Arguments(
+data class FabricArguments(
     @Contextual val game: MutableList<JsonElement>,
     @Contextual val jvm: MutableList<JsonElement>
 )
