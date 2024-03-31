@@ -10,7 +10,11 @@ class Launcher private constructor(
     private val version: Version,
     val rootDir: File,
     val gameDir: File,
-    private val args: List<String> = emptyList()
+    private val jvmArgs: List<String> = emptyList(),
+    private val gameArgs: List<String> = emptyList(),
+    private val cp: List<String> = emptyList(),
+    private var mainClass: String = "",
+    private var javaPath: String = "java",
 ) {
     val assetsDir = File(rootDir, "assets")
     val libsDir = File(rootDir, "libs")
@@ -20,6 +24,7 @@ class Launcher private constructor(
 
     suspend fun launch() {
         version.init()
+        if (mainClass.isEmpty()) mainClass = manifest.mainClass
         if (!rootDir.exists()) {
             rootDir.mkdirs()
         }
@@ -41,16 +46,17 @@ class Launcher private constructor(
 
     private fun launchGame() {
         println("Launching game")
-        val cpSeparator = when(currentOs()) {
+        val cpSeparator = when (currentOs()) {
             "windows" -> ";"
             else -> ":"
         }
         val command = mutableListOf<String>().apply {
-            add("java")
+            add(javaPath)
             add("-Djava.library.path=${nativesDir.absolutePath}")
+            addAll(jvmArgs)
             add("-cp")
-            add("\"" + libraries.joinToString(cpSeparator) { it } + cpSeparator + "client.jar\"")
-            add(manifest.mainClass)
+            add("\"" + cp.joinToString(cpSeparator) { it } + cpSeparator + libraries.joinToString(cpSeparator) { it } + cpSeparator + "client.jar\"")
+            add(mainClass)
             add("--gameDir")
             add(gameDir.absolutePath)
             add("--assetsDir")
@@ -59,7 +65,7 @@ class Launcher private constructor(
             add(manifest.assets)
             add("--version")
             add(manifest.id)
-            addAll(args)
+            addAll(gameArgs)
         }
         println(command.joinToString(" "))
         val process = ProcessBuilder(command).directory(gameDir).start()
@@ -74,12 +80,20 @@ class Launcher private constructor(
         private lateinit var _version: Version
         private lateinit var _rootDir: File
         private lateinit var _gameDir: File
-        private var _args: List<String> = emptyList()
+        private var _jvmArgs: List<String> = emptyList()
+        private var _gameArgs: List<String> = emptyList()
+        private var _cp: List<String> = emptyList()
+        private var _mainClass = ""
+        private var _javaPath = "java"
         fun version(version: Version) = apply { _version = version }
         fun rootDir(rootDir: File) = apply { _rootDir = rootDir }
         fun gameDir(gameDir: File) = apply { _gameDir = gameDir }
-        fun args(args: List<String>) = apply { _args = args }
-        fun build() = Launcher(_version, _rootDir, _gameDir, _args).apply {
+        fun jvmArgs(args: List<String>) = apply { _jvmArgs = args }
+        fun gameArgs(args: List<String>) = apply { _gameArgs = args }
+        fun cp(cp: List<String>) = apply { _cp = cp }
+        fun mainClass(mainClass: String) = apply { _mainClass = mainClass }
+        fun javaPath(javaPath: String) = apply { _javaPath = javaPath }
+        fun build() = Launcher(_version, _rootDir, _gameDir, _jvmArgs, _gameArgs, _cp, _mainClass, _javaPath).apply {
             this.version.launcher = this
         }
     }
