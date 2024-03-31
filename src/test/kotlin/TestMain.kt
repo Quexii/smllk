@@ -1,6 +1,5 @@
 import kotlinx.coroutines.*
 import us.shoroa.smllk.Launcher
-import us.shoroa.smllk.modloader.Fabric
 import us.shoroa.smllk.modloader.LegacyFabric
 import us.shoroa.smllk.version.Version
 import java.io.File
